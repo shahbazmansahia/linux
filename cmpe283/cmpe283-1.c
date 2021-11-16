@@ -13,6 +13,11 @@
  */
 #define IA32_VMX_PINBASED_CTLS	0x481
 #define IA32_VMX_PROCBASED_CTLS	0x482
+#define IA32_VMX_PROCBASED_CTLS2	0x48B
+#define IA32_VMX_EXIT_CTLS		0x483
+#define IA32_VMX_ENTRY_CTLS		0x484
+
+
 /*
  * struct caapability_info
  *
@@ -64,6 +69,72 @@ struct capability_info procbased[22] =
 	{ 30, "PAUSE_EXITING" },
 	{ 31, "ACTIVATE_SECONDARY_CONTROLS" } // NOT IN ASSIGNMENT OUTPUT
 };
+
+struct capability_info procbased2[27] =
+{
+	{ 0, "VIRTUALIZE_APIC_ACCESSES" },
+	{ 1, "ENABLE_EPT" },
+	{ 2, "DESCRIPTOR_TABLE_EXITING" },
+	{ 3, "ENABLE_RDTSCP" },
+	{ 4, "VIRTUALIZE_x2APIC_MODE" },
+	{ 5, "ENABLE_VPID" },
+	{ 6, "WBINVD_EXITING" },
+	{ 7, "UNRESTRICTED_GUEST" },
+	{ 8, "APIC_REGISTER_VIRTUALIZATION" },
+	{ 9, "VITUAL_INTERRUPT_DELIVERY" },
+	{ 10, "PAUSE_LOOP_EXITING" },
+	{ 11, "RD_RAND_EXITING" },
+	{ 12, "ENABLE_INVPCID" },
+	{ 13, "ENABLE_VM_FUNCTIONS" },
+	{ 14, "VMCS_SHADOWING" },
+	{ 15, "ENABLE_ENCLS" },
+	{ 16, "RDSEED_EXITING" },
+	{ 17, "ENABLE_PML" },
+	{ 18, "EPT_VIOLATION_VE" },
+	{ 19, "CONCEAL_VMX_FROM_PT" },
+	{ 20, "ENABLE_XSAVES_XRSTORS" },
+	{ 22, "MODE_BASED_EXECUTE_CTRL_FOR_EPT" },
+	{ 23, "SUB_PAGE_WRITE_PERMISSIONS_FOR_EPT" },
+	{ 24, "INTEL_PT_USES_GUEST_PA" },
+	{ 25, "USE_TSC_SCALING" },
+	{ 26, "ENABLE_USER_WAIT_PAUSE" },
+	{ 28, "ENABLE_ENCLV_EXITING" }
+};
+
+struct capability_info exitbased[14] =
+{
+	{ 2, "SAVE_DEBUG_CNTRLS" },
+	{ 9, "HOST_ADDR_SPC_SIZE" },
+	{ 12, "LOAD_IA32_PERF_GLOBAL_CTRL" },
+	{ 15, "ACK_INTR_ON_EXIT" },
+	{ 18, "SAVE_IA32_PAT" },
+	{ 19, "LOAD_I32_PAT" },
+	{ 20, "SAVE_IA32_EFER" },
+	{ 21, "LOAD_IA32_EFER" },
+	{ 22, "SAVE_VMX_PREEMPTION_TIMER_VALUE" },
+	{ 23, "CLEAR_IA32_BNDCFGS" },
+	{ 24, "CONCEAL_VMX_FROM_PT" },
+	{ 25, "CLEAR_IA32_RTIT_CTL" },
+	{ 28, "LOAD_CET_STATE" },
+	{ 29, "LOAD_PKRS" }
+};
+
+struct capability_info entrybased[12] =
+{
+	{ 2, "LOAD_DEBUG_CTRLS" },
+	{ 9, "IA-32E_MODE_GUEST" },
+	{ 10, "ENTRY_TO_SMM" },
+	{ 11, "DEACTIVATE_DUAL_MONITOR_TREATMENT" },
+	{ 13, "LOAD_IA32_PERF_GLOBAL_CTRL" },
+	{ 14, "LOAD_IA32_PAT" },
+	{ 15, "LOAD_IA32_EFER" },
+	{ 16, "LOAD_IA32_BNDCFGS" },
+	{ 17, "CONCEAL_VMX_FROM_PT" },
+	{ 18, "LOAD_IA32_RTIT_CTL" },
+	{ 20, "LOAD_CET_STATE" },
+	{ 22, "LOAD_PKRS" }
+};
+
 
 
 /* TWEAKED CODE STOPS HERE*/
@@ -122,6 +193,27 @@ detect_vmx_features(void)
 	pr_info("Procbased ctls: 0x%llx\n", 
 		 (uint64_t)(lo | (uint64_t)hi << 32));
 	report_capability(procbased, 22, lo, hi);
+	
+	/* Procbased controls 2 */
+	rdmsr(IA32_VMX_PROCBASED_CTLS2, lo, hi);
+	pr_info("Procbased ctls2: 0x%llx\n", 
+		 (uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(procbased2, 27, lo, hi);
+	
+	/* Exit controls */
+	rdmsr(IA32_VMX_EXIT_CTLS, lo, hi);
+	pr_info("Exit ctls: 0x%llx\n", 
+		 (uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(exitbased, 14, lo, hi);
+	
+	/* Entry controls */
+	rdmsr(IA32_VMX_EXIT_CTLS, lo, hi);
+	pr_info("Entry ctls: 0x%llx\n", 
+		 (uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(exitbased, 12, lo, hi);
+	
+	
+	
 	/* TWEAKED CODE STOPS HERE! */
 		
 }
