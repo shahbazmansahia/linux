@@ -120,7 +120,7 @@ detect_vmx_features(void)
 	/* Procbased controls */
 	rdmsr(IA32_VMX_PROCBASED_CTLS, lo, hi);
 	pr_info("Procbased ctls: 0x%llx\n", 
-		 (uint64_t)(lo | (unint64_t)h1 << 32));
+		 (uint64_t)(lo | (uint64_t)hi << 32));
 	report_capability(procbased, 22, lo, hi);
 	/* TWEAKED CODE STOPS HERE! */
 		
