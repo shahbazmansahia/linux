@@ -207,10 +207,10 @@ detect_vmx_features(void)
 	report_capability(exitbased, 14, lo, hi);
 	
 	/* Entry controls */
-	rdmsr(IA32_VMX_EXIT_CTLS, lo, hi);
+	rdmsr(IA32_VMX_ENTRY_CTLS, lo, hi);
 	pr_info("Entry ctls: 0x%llx\n", 
 		 (uint64_t)(lo | (uint64_t)hi << 32));
-	report_capability(exitbased, 12, lo, hi);
+	report_capability(entrybased, 12, lo, hi);
 	
 	
 	
