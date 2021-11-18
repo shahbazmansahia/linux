@@ -1230,16 +1230,40 @@ bool kvm_cpuid(struct kvm_vcpu *vcpu, u32 *eax, u32 *ebx,
 }
 EXPORT_SYMBOL_GPL(kvm_cpuid);
 
+// tweaked code
+
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
 	u32 eax, ebx, ecx, edx;
-
+	extern u32 total_exits;
 	if (cpuid_fault_enabled(vcpu) && !kvm_require_cpl(vcpu, 0))
 		return 1;
-
+	
 	eax = kvm_rax_read(vcpu);
 	ecx = kvm_rcx_read(vcpu);
-	kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
+	
+	// TWEAKED CODE BEGINS HERE
+	// called whenever the 'ffff' case arises; i.e. case 1 of assignment
+	if (eax == 0x4fffffff){
+		// case 1 from assignment
+		eax = total_exits;
+	}
+	else if (eax == 0x4ffffffe){
+		// case 2 from assignment
+	}
+	else if (eax == 0x4ffffffd){
+		// case 3 from assignment 
+	}
+	else if (eax == 0x4ffffffc){
+		// case 4 from assignment
+	}
+	
+	else{
+		// note-to-self: this was originally independent of the if-else clause
+		kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
+	
+	}
+	// TWEAKED CODE ENDS HERE
 	kvm_rax_write(vcpu, eax);
 	kvm_rbx_write(vcpu, ebx);
 	kvm_rcx_write(vcpu, ecx);
