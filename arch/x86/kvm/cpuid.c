@@ -1235,7 +1235,7 @@ EXPORT_SYMBOL_GPL(kvm_cpuid);
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
 	u32 eax, ebx, ecx, edx;
-	extern u32 total_exits;
+	extern u32 totalexits;
 	extern uint64_t startExit;
 	extern uint64_t endExit;
 	uint64_t totalExitTime;
@@ -1249,7 +1249,7 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 	// called whenever the 'ffff' case arises; i.e. case 1 of assignment
 	if (eax == 0x4fffffff){
 		// case 1 from assignment
-		eax = total_exits;
+		eax = totalexits;
 	}
 	else if (eax == 0x4ffffffe){
 		// case 2 from assignment

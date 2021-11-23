@@ -5914,10 +5914,10 @@ void dump_vmcs(struct kvm_vcpu *vcpu)
 
 // TWEAKED CODE STARTS HERE
 //unsigned 32 bit variable:
-u32 total_exits = 0;
+u32 totalexits;
 uint64_t startExit;
 uint64_t endExit;
-EXPORT_SYMBOL_GPL(total_exits);
+EXPORT_SYMBOL_GPL(totalexits);
 EXPORT_SYMBOL_GPL(startExit);
 EXPORT_SYMBOL_GPL(endExit);
 // TWEAKED CODE ENDS HERE
@@ -5934,7 +5934,7 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	u16 exit_handler_index;
 	
 	// TWEAKED CODE STARTS HERE
-	total_exits++;
+	totalexits++;
 	startExit = rdtsc();
 	// TWEAKED CODE ENDS HERE
 	/*
