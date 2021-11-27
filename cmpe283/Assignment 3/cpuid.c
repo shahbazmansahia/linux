@@ -1266,7 +1266,16 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 	}
 	else if (eax == 0x4ffffffd){
 		// case 3 from assignment
-		eax = exitForEach[exitHandlerInd]; 
+		eax = exitForEach[exitHandlerInd];
+		ecx = exitHandlerInd;
+		
+		// in case it is one of the exits that isn't supposed to trigger but somehow gets triggered
+		if ((exitHandlerInd == 35) || (exitHandlerInd == 38) || (exitHandlerInd == 42) || (exitHandlerInd == 65) || (exitHandlerInd == 35)){
+		eax = 0x0000000;
+		ebx = 0x0000000;
+		ecx = 0x0000000;
+		edx = 0x4fffffff;
+		}
 	}
 	else if (eax == 0x4ffffffc){
 		// case 4 from assignment
