@@ -64,6 +64,7 @@ References
 "Agora", & "slm". (n.d.). Attempting to compile kernel yields a certification error - Unix & Linux Stack Exchange. Unix StackExchange. Retrieved November 10, 2021, from https://unix.stackexchange.com/questions/293642/attempting-to-compile-kernel-yields-a-certification-error
 
 VMWare Customer Connect. (2020, September 9). "VMware Workstation and Device/Credential Guard are not compatible" error in VMware Workstation on Windows 10 host (2146361) | VMware KB. VMware Knowledge Base. Retrieved November 10, 2021, from https://kb.vmware.com/s/article/2146361
+
 —-----------------------------------------------------------------------------------------------------------------
 
 Assignment 2 write-up
@@ -84,6 +85,7 @@ Shahbaz Singh Mansahia (010027459)
 I basically tried to code the exit_handler code and the cpuid’s emulate_cpuid code. Created some if-else statements and skeletal code for both the assignments. Managed to debug most issues as we were simply told about the extern command but did not know that we had to also explicitly export the variables using the EXPORT_SYMBOL_GPL() commands. I initially assumed these would apss regardless since c++ tends to share globals across c files as long as they are imported. I tried to install the nested VM and asked Pavan for help with testing and researching how to pass the cpuid command with the relevant parameters and test the code I wrote. We struggled mostly because, despite researching the issue of the cyclic dependency, we got nowhere. I hope I can resolve this issue and succeed in the next assignment. Most of the issues stemmed from the configuration of the system and the compilation time for the linux source code files rather than the code complexity of the code since documentation can be studied but if you don’t have experience with C, and on top of that try to setup a nested VM environment with a custom VMM, one who’s source code you don’t completely understand, it gets very hard to find any answers or support for any problems one runs into.
 
 —-----------------------------------------------------------------------------------------------------------------
+
 Added if-else statements to the ‘kvm_emulate-cpuid()’ function in cpuid.c as required by the assignment(s) for each of the assignment clauses.
 
 Initialized and added the total_exits variable to the vmx.c file in the ‘__vmx_handle_exit()’ method to tally the total number of exits taken by the VM.
