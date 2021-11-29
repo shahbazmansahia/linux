@@ -1231,18 +1231,37 @@ bool kvm_cpuid(struct kvm_vcpu *vcpu, u32 *eax, u32 *ebx,
 EXPORT_SYMBOL_GPL(kvm_cpuid);
 
 // tweaked code
+	// Assignment 2 code here
+	
+	//extern u32 totalexits;
+	//extern uint64_t startExit;
+	//extern uint64_t endExit;
+u32 totalexits;
+uint64_t startExit;
+uint64_t endExit;
+
+
+EXPORT_SYMBOL_GPL(totalexits);
+EXPORT_SYMBOL_GPL(startExit);
+EXPORT_SYMBOL_GPL(endExit);
+
+// Assignment 3 code here
+	//extern u32 exitForEach[];
+	//extern u16 exitHandlerInd;
+u32 exitForEach[69]; // basing this number off of the manually calculated length of the vmx array; UPDATE: changed it to match the 69 defined in the SDM
+u32 exitHandlerInd;
+	
+EXPORT_SYMBOL_GPL(exitForEach);
+EXPORT_SYMBOL_GPL(exitHandlerInd);
+
+	
 
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
 	u32 eax, ebx, ecx, edx;
 	// Assignment 2 code here
-	extern u32 totalexits;
-	extern uint64_t startExit;
-	extern uint64_t endExit;
+
 	uint64_t totalExitTime;
-	// Assignment 3 code here
-	extern u32 exitForEach[];
-	extern u16 exitHandlerInd;
 	
 	if (cpuid_fault_enabled(vcpu) && !kvm_require_cpl(vcpu, 0))
 		return 1;

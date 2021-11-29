@@ -5914,20 +5914,32 @@ void dump_vmcs(struct kvm_vcpu *vcpu)
 
 // TWEAKED CODE STARTS HERE
 //unsigned 32 bit variable:
-u32 totalexits;
-uint64_t startExit;
-uint64_t endExit;
-EXPORT_SYMBOL_GPL(totalexits);
-EXPORT_SYMBOL_GPL(startExit);
-EXPORT_SYMBOL_GPL(endExit);
+
+//u32 totalexits;
+//uint64_t startExit;
+//uint64_t endExit;
+
+extern u32 totalexits;
+extern uint64_t startExit;
+extern uint64_t endExit;
+
+//EXPORT_SYMBOL_GPL(totalexits);
+//EXPORT_SYMBOL_GPL(startExit);
+//EXPORT_SYMBOL_GPL(endExit);
 
 // Assigment 3 values and codes
 // Based on exit-handler array given in the file above; should be u16 but I'm going with u32 because it doesn't hurt to have extra values
 
-u32 exitForEach[ARRAY_SIZE(kvm_vmx_exit_handlers)];
-u32 exitHandlerInd;
-EXPORT_SYMBOL_GPL(exitForEach);
-EXPORT_SYMBOL_GPL(exitHandlerInd);
+//u32 exitForEach[ARRAY_SIZE(kvm_vmx_exit_handlers)];
+//u32 exitHandlerInd;
+
+//EXPORT_SYMBOL_GPL(exitForEach);
+//EXPORT_SYMBOL_GPL(exitHandlerInd);
+
+extern u32 exitForEach[];
+extern u16 exitHandlerInd;
+	
+
 // TWEAKED CODE ENDS HERE
 
 /*
