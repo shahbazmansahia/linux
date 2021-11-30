@@ -1245,15 +1245,23 @@ EXPORT_SYMBOL_GPL(totalexits);
 EXPORT_SYMBOL_GPL(startExit);
 EXPORT_SYMBOL_GPL(endExit);
 
-// Assignment 3 code here
-	//extern u32 exitForEach[];
-	//extern u16 exitHandlerInd;
+// Assignment 3 code here!!!!
+
+//extern u32 exitForEach[];
+//extern u16 exitHandlerInd;
 u32 exitForEach[69]; // basing this number off of the manually calculated length of the vmx array; UPDATE: changed it to match the 69 defined in the SDM
 u32 exitHandlerInd;
+
+// these values correspond to start and end times for each exit type defined in the SDM.
+// they only get calculated in the cpuid.c kvm_emulate_cpuid() method though.
+uint64_t startTimeInd[69]; 
+uint64_t endTimeInd[69];
 	
 EXPORT_SYMBOL_GPL(exitForEach);
 EXPORT_SYMBOL_GPL(exitHandlerInd);
 
+EXPORT_SYMBOL_GPL(startTimeInd);
+EXPORT_SYMBOL_GPL(endTimeInd);
 	
 
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
@@ -1299,6 +1307,11 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 	}
 	else if (eax == 0x4ffffffc){
 		// case 4 from assignment
+		
+		endTimeInd[exitHandlerInd] = rdtsc();
+		totalExitTime = endTimeInd[exitHandlerInd] - startTimeInd[exitHandlerInd];
+		ebx = (uint32_t) (totalExitTime >> 32);
+		ecx = (uint32_t) (totalExitTime);
 		
 		if ((exitHandlerInd == 35) || (exitHandlerInd == 38) || (exitHandlerInd == 42) || (exitHandlerInd == 65) || (exitHandlerInd == 35)){
 		eax = 0x0000000;

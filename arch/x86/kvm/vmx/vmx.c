@@ -5928,6 +5928,7 @@ extern uint64_t endExit;
 //EXPORT_SYMBOL_GPL(endExit);
 
 // Assigment 3 values and codes
+
 // Based on exit-handler array given in the file above; should be u16 but I'm going with u32 because it doesn't hurt to have extra values
 
 //u32 exitForEach[ARRAY_SIZE(kvm_vmx_exit_handlers)];
@@ -5938,6 +5939,9 @@ extern uint64_t endExit;
 
 extern u32 exitForEach[];
 extern u16 exitHandlerInd;
+
+extern uint64_t startTimeInd[];
+extern uint64_t endTimeInd[];
 	
 
 // TWEAKED CODE ENDS HERE
@@ -5957,8 +5961,14 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	totalexits++;
 	startExit = rdtsc();
 	exitHandlerInd = exit_reason.basic;
+	
+	printk (KERN_INFO "Message: %d\n", totalexits );
+	
 	if ((exitHandlerInd > 0) && (exitHandlerInd < (ARRAY_SIZE(kvm_vmx_exit_handlers)))){
 		exitForEach[exit_handler_index]++;
+		
+		// read time
+		startTimeInd [exit_handler_index] = rdtsc();
 	}
 	
 	// TWEAKED CODE ENDS HERE
