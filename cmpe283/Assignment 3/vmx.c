@@ -5964,6 +5964,10 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	
 	printk (KERN_INFO "Message: %d\n", totalexits );
 	
+	pr_info("Message pr_info: 0x%d\n",
+		totalexits);
+	
+	
 	if ((exitHandlerInd > 0) && (exitHandlerInd < (ARRAY_SIZE(kvm_vmx_exit_handlers)))){
 		exitForEach[exit_handler_index]++;
 		
