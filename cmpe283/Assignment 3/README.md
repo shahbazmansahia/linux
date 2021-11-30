@@ -1,16 +1,16 @@
 CMPE 283 Assignment 3 write-up
 
-—-----------------------------------------------------------------------------------------------------------------
+—-----------------------------------------------------------------------------------------------------------------<br/>
 Pavan Karthik Gollakaram (015945670)
 
-I worked with Shahbaz in setting up the code of cpuid.c and vmx.c. We examined Intel's SDM to view the available exit codes and gathered the required code to print out the supported KVM exit codes and what numbers are associated with the exit codes. 
+I worked with Shahbaz in setting up the code of cpuid.c and vmx.c. We examined Intel's SDM to view the available exit codes and gathered the required code to print out the supported KVM exit codes and what numbers are associated with the exit codes. Initiated and worked on the C leaf node part of the execution on Shahbaz's system.
 
-—-----------------------------------------------------------------------------------------------------------------
+—-----------------------------------------------------------------------------------------------------------------<br/>
 
 Shahbaz Singh Mansahia (010027459)
 
 Coded the D leaf node and installed the kvm modules on my local machine this time. Also rewrote the lost data from the force push from last week to keep assignment documentation intact with the help of Pavan. Debugged the virtual network adapter issues that arose during this particular assignment. Also worked with Pavan for implementing the C leaf of the assignment. Tested using the cpuid function in the nested VM with mixed results as the code, despite building and installing, and the kvm and kvm_intel modules being mod-probe’d successfully, would not translate to cpuid outputs in the nested VM terminal (when using the cpuid package installed and tested using “cpuid -l 0x4ffffff<leaf>; with <leaf> being the specific code value passed to the function as instructed in the assignment).
-—-----------------------------------------------------------------------------------------------------------------
+—-----------------------------------------------------------------------------------------------------------------<br/>
 
 Setup the virt-manager and other dependencies for the nested VM in the previous assignment but forgot to mention it/ran out of time/issues during the last 15 minutes so I couldn’t mention it.
 Swapped the extern declaration to vmx.c and the variable declaration to cpuid.c and that has fixed the install issue.
@@ -28,7 +28,7 @@ Used ‘rmmod’ on ‘kvm’ and ‘kvm_intel’ modules to unload them and the
 After getting rid of the cyclical dependency issues, and extensive debugging of the code and system configuration, we were unable to get the code to display in cpuid calls from the nested vm.
 Decided to attach all the setup and configuration build snapshots to document our progress on the assignments and project overall. Getting it to build was some sort of feat I guess. We are aware that the code does not successfully check for disabled controls from the VM but without an active code display (despite trying printk and pr_info messages we were unable to find them in the dmesg log or anywhere else), we could only work on it as much as we did.
 
-—---------------------------------------------------------------------------------------------------------------------------
+—---------------------------------------------------------------------------------------------------------------------------<br/>
 
 Q1) Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there more exits performed during certain VM operations? Approximately how many exits does a full VM boot entail? 
 
@@ -38,7 +38,7 @@ Q2) Of the exit types defined in the SDM, which are the most frequent? Least?
 
 A2) I’d say the device interrupts and HLT interrupts were the most common. Again, this is coming not from displayed feedback from the machine but from intuition based on what we learned in the course so far and observed machine behavior over the course of the assignments.
 
-—---------------------------------------------------------------------------------------------------------------------------
+—---------------------------------------------------------------------------------------------------------------------------<br/>
 
 
 References
