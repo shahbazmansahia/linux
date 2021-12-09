@@ -31,6 +31,8 @@ Called all the leaf nodes using the cpuid command and took screenshots for each 
 Q) What did you learn from the count of exits? Was the count what you expected? If not, why not?
 A)  Nothing went as expected. We routinely tried to fix the nested-vm to VM relationship but despite the modules loading and all the variables existing in the loaded modules, the nested VM simply did not print any of the requests that we were passing to it. 
 
+![With ept x4fffffc](/with ept/Screenshot from 2021-12-08 21-20-50.png)
+
 Q) What changed between the two runs (ept vs no-ept)?
 
 A) Since the configuration was not set up properly, we are simply discussing what we would think would happen based on what we have discussed in our lectures. We feel like there will be more exits with shadow paging as well as substantially more page fault exceptions. Since shadow paging relies upon page faults to actually update the local VM page table, this too would result in more interrupts while regular functioning. We know from our lectures that shadow paging would trigger more TLB flushes, page faults and Control Register access exits. The most common exits would be HLT and external interrupts (due to the nature of shadow paging). Cpuid exits will also be there as we call them to run the kvm_emulate_cpuid function. There will be fewer external interrupts in nested paging as it is structured very differently.
