@@ -31,7 +31,7 @@ Called all the leaf nodes using the cpuid command and took screenshots for each 
 Q) What did you learn from the count of exits? Was the count what you expected? If not, why not?
 A)  Nothing went as expected. We routinely tried to fix the nested-vm to VM relationship but despite the modules loading and all the variables existing in the loaded modules, the nested VM simply did not print any of the requests that we were passing to it. 
 
-
+![alt text](https://github.com/shahbazmansahia/linux/cmpe283/Assignment 4/with ept0/blob/master/Screenshot from 2021-12-08 21-20-50.png.jpg?raw=true)
 
 Q) What changed between the two runs (ept vs no-ept)?
 
